@@ -15,23 +15,6 @@ model = LiteLLMModel(model_id=os.getenv("AZURE_MODEL_ID"),
                     temperature=float(os.getenv("AZURE_TEMPERATURE", "0.2"))
                     )
 
-prompt_template = {
-    "system_prompt": """You are a supervisory agent that can delegate tasks to specialized ACP agents.
-                ##########Available agents:###################
-                {agents}
-
-                #####Strictly Follow ALL Steps to Perform Task:########
-                1. Analyze the user's request.
-                2. Call the appropriate agent(s) to gather information.
-                3. If required to call multiple agent, you are allowed to call multiple agents sequentially to gather information.
-                4. Give final combined summary based on all gathered information.
-                5. call termination_agent and pass all summarized answer as input into it to terminate the conversation after getting all answers of user queries.
-                
-                
-                ########Strictly Remember ALL below points: ##############
-                1. If Output is not coming properly due to any reason like error, or other issues, call termination_agent to stop execution.
-                """
-}
 
 prompt_template2 = {
     "system_prompt":'''You are a supervisory agent that delegates tasks to specialized ACP agents.
